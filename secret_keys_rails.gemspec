@@ -26,7 +26,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "rails", ">= 4"
-
-  spec.add_development_dependency "bundler", "< 2"
-  spec.add_development_dependency "appraisal", "~> 2.2.0"
+  spec.add_dependency "ice_nine"
+  spec.add_dependency "thor"
 end

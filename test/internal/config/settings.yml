@@ -1,0 +1,1 @@
+foo: <%= SecretKeysRails.secrets.dig(:foo) %>

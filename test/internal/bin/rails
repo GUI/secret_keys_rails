@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+
+require "combustion"
+Combustion.initialize! unless Combustion::Application.initialized?
+
+require "rails/commands"
