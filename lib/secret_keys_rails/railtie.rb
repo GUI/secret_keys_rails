@@ -27,10 +27,5 @@ module SecretKeysRails
     rake_tasks do
       load "secret_keys_rails/railtie/secret_keys.rake"
     end
-
-    # Load our custom generators.
-    generators do
-      require "secret_keys_rails/railtie/generators/install_generator"
-    end
   end
 end
