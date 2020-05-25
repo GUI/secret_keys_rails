@@ -13,6 +13,7 @@ jobs:
         include:
           - ruby: "2.4"
             rails: "4.2"
+    name: "test (Ruby ${{ matrix.ruby }}, Rails ${{ matrix.rails }})"
     env:
       BUNDLE_JOBS: 4
       BUNDLE_RETRY: 3
@@ -30,6 +31,11 @@ jobs:
           path: vendor/bundle
           key: ${{ runner.os }}-${{ matrix.rails }}-gems-${{ hashFiles(env.BUNDLE_GEMFILE) }}
           restore-keys: ${{ runner.os }}-${{ matrix.rails }}-gems-
+      - name: Bundler Downgrade
+        run: |
+          gem uninstall bundler -x
+          gem install bundler -v "< 2" --no-document
+        if: ${{ matrix.rails == '4.2' }}
       - name: Bundle Install
         run: bundle install
       - name: Test
