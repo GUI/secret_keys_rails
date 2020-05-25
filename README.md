@@ -75,7 +75,7 @@ SecretKeysRails.secrets.dig(:some_api_key)
 
 In order to decrypt the secrets, the encryption key must be set. The encryption key may either be stored in the `config/secret_keys.yml.key` file or set in the `SECRET_KEYS_ENCRYPTION_KEY` environment variable.
 
-By default, if the encryption key is not set, then `SecretKeysRails.secrets` will return an empty hash. If you want to require the encryption key be set, then you can change the `SecretKeysRails.require_encryption_key` setting to raise an error if the encryption key is not set.
+By default, if the encryption key is not set, then `SecretKeysRails.secrets` will return an empty hash. If you want to require the encryption key be set, then you can change the [`SecretKeysRails.require_encryption_key`](#secretkeysrailsrequire_encryption_key) setting to raise an error if the encryption key is not set.
 
 ### Environment Specific Secrets
 
@@ -89,13 +89,13 @@ will create `config/secret_keys/development.yml` with the corresponding encrypti
 
 The encryption key can also be put in `ENV["SECRET_KEYS_ENCRYPTION_KEY"]`, which takes precedence over the file encryption key.
 
-In addition to that, the default credentials lookup paths can be overridden through the `SecretKeysRails.secrets_path` and `SecretKeysRails.key_path` settings.
+In addition to that, the default credentials lookup paths can be overridden through the [`SecretKeysRails.secrets_path`](#secretkeysrailssecrets_path) and [`SecretKeysRails.key_path`](#secretkeysrailskey_path) settings.
 
 ## Configuration
 
 You may adjust RailsSecretKeys configuration by adding a `config/initializers/secret_keys_rails.rb` file
 
-### `SecretKeysRails.require_encryption_key`
+#### `SecretKeysRails.require_encryption_key`
 
 Raise an error if the encryption key isn't set.
 
@@ -103,7 +103,7 @@ Raise an error if the encryption key isn't set.
 SecretKeysRails.require_encryption_key = true # Defaults to `false`
 ```
 
-### `SecretKeysRails.secrets_path`
+#### `SecretKeysRails.secrets_path`
 
 Set a custom path to the secret keys encrypted file.
 
@@ -111,7 +111,7 @@ Set a custom path to the secret keys encrypted file.
 SecretKeysRails.secret_path = "config/my_keys.yml" # Defaults to `config/secret_keys/<ENV>.yml` or `config/secret_keys.yml`
 ```
 
-### `SecretKeysRails.key_path`
+#### `SecretKeysRails.key_path`
 
 Set a custom path to the encryption key path.
 
