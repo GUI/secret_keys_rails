@@ -164,7 +164,9 @@ class SecretKeysRailsTest < Minitest::Test
     FileUtils.cp("test/fixtures/secret_keys.yml.key", "test/internal/config/secret_keys.yml.key")
     load_app(libs: ["config"]) do
       stdout, stderr, status = Open3.capture3("bundle exec secret_keys_rails show")
-      assert_equal("", stderr)
+      if RUBY_VERSION.to_f < 2.7 || ::Rails.version.to_f >= 6.0
+        assert_equal("", stderr)
+      end
       assert_equal("foo: bar\nbaz:\n  test:\n  - a\n  - b\n", stdout)
       assert_equal(true, status.success?)
     end
@@ -175,7 +177,9 @@ class SecretKeysRailsTest < Minitest::Test
     FileUtils.cp("test/fixtures/secret_keys.yml.key", "test/internal/config/secret_keys.yml.key")
     load_app(libs: ["config"]) do
       stdout, stderr, status = Open3.capture3("bundle exec rake secret_keys:show")
-      assert_equal("", stderr)
+      if RUBY_VERSION.to_f < 2.7 || ::Rails.version.to_f >= 6.0
+        assert_equal("", stderr)
+      end
       assert_equal("foo: bar\nbaz:\n  test:\n  - a\n  - b\n", stdout)
       assert_equal(true, status.success?)
     end
@@ -188,7 +192,9 @@ class SecretKeysRailsTest < Minitest::Test
       skip if ::Rails.version.to_f < 5.0
 
       stdout, stderr, status = Open3.capture3("bundle exec ./bin/rails secret_keys:show")
-      assert_equal("", stderr)
+      if RUBY_VERSION.to_f < 2.7 || ::Rails.version.to_f >= 6.0
+        assert_equal("", stderr)
+      end
       assert_equal("foo: bar\nbaz:\n  test:\n  - a\n  - b\n", stdout)
       assert_equal(true, status.success?)
     end
