@@ -3,9 +3,6 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in secret_keys_rails.gemspec
 gemspec
 
-# TODO: Remove once secret_keys gem is released.
-gem "secret_keys", :git => "https://github.com/GUI/secret_keys.git", :branch => "ruby24-compat"
-
 gem "rake", "~> 12.0"
 
 # Tests
