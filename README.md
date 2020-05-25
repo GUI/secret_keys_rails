@@ -1,5 +1,7 @@
 # SecretKeysRails
 
+[![CI](https://github.com/GUI/secret_keys_rails/workflows/CI/badge.svg)](https://github.com/GUI/secret_keys_rails/actions?workflow=CI)
+
 An alternative to Rails encrypted credentials that uses the [SecretKeys](https://github.com/bdurand/secret_keys) library. The primary difference this offers versus the default Rails encrypted credentials strategy is that this uses an encrypted file format that only encrypts the values of the file (the hash keys are unencrypted). This allows for easier git diffs/merges while still keeping the secret values encrypted (but the overall structure of the file will not be encrypted). This gem provides some convenience wrappers on top of the SecretKeys library for integration with Rails applications.
 
 As an example, the encrypted version of:
@@ -93,7 +95,7 @@ In addition to that, the default credentials lookup paths can be overridden thro
 
 ## Configuration
 
-You may adjust RailsSecretKeys configuration by adding a `config/initializers/secret_keys_rails.rb` file
+You may adjust RailsSecretKeys configuration by adding a `config/initializers/secret_keys_rails.rb` file with setting changes. Note that the initializer must exist at this path to be properly loaded (this ensures that RailsSecretKeys is available early on in the Rails load process, so other parts of Rails and other gems can integrate with it).
 
 #### `SecretKeysRails.require_encryption_key`
 

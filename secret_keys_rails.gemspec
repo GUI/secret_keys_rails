@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Nick Muerdter"]
   spec.email         = ["12112+GUI@users.noreply.github.com"]
 
-  spec.summary       = %q{Rails integration for the secret_keys gem.}
+  spec.summary       = %q{Git-friendly encrypted secrets for Rails.}
   spec.homepage      = "https://github.com/GUI/secret_keys_rails"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
