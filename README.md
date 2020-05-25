@@ -33,23 +33,19 @@ And then execute:
 bundle install
 ```
 
-To add an initializer and setup your gitignore file then run:
-
-```
-rails generate secret_keys_rails:install
-```
-
 ## Usage
 
-### Editing Secrets
+### Creating or Editing Secrets
 
-To open an interactive editor to edit the default encrypted `config/secret_keys.yml` file:
+To open an interactive editor to create or edit the default encrypted `config/secret_keys.yml` file:
 
 ```
 rake secret_keys:edit
 ```
 
 All string values you enter will be encrypted after saving and closing this editing session.
+
+If editing the file for the first time, an encryption key will be generated for you and saved to `config/secret_keys.yml.key`. This encryption key should be kept private and only shared to users that need to decrypt the encrypted values.
 
 ### Showing Secrets
 
@@ -75,9 +71,53 @@ SecretKeysRails.secrets.fetch(:some_api_key)
 SecretKeysRails.secrets.dig(:some_api_key)
 ```
 
+### Encryption Key
+
+In order to decrypt the secrets, the encryption key must be set. The encryption key may either be stored in the `config/secret_keys.yml.key` file or set in the `SECRET_KEYS_ENCRYPTION_KEY` environment variable.
+
+By default, if the encryption key is not set, then `SecretKeysRails.secrets` will return an empty hash. If you want to require the encryption key be set, then you can change the `SecretKeysRails.require_encryption_key` setting to raise an error if the encryption key is not set.
+
 ### Environment Specific Secrets
 
+The commands support passing an `--environment` option to create an environment specific override. That override will take precedence over the global `config/secret_keys.yml` file when running in that environment. So:
+
+```
+rake secret_keys:edit -- --environment development
+```
+
+will create `config/secret_keys/development.yml` with the corresponding encryption key in `config/secret_keys/development.yml.key` if the credentials file doesn't exist.
+
+The encryption key can also be put in `ENV["SECRET_KEYS_ENCRYPTION_KEY"]`, which takes precedence over the file encryption key.
+
+In addition to that, the default credentials lookup paths can be overridden through the `SecretKeysRails.secrets_path` and `SecretKeysRails.key_path` settings.
+
 ## Configuration
+
+You may adjust RailsSecretKeys configuration by adding a `config/initializers/secret_keys_rails.rb` file
+
+### `SecretKeysRails.require_encryption_key`
+
+Raise an error if the encryption key isn't set.
+
+```ruby
+SecretKeysRails.require_encryption_key = true # Defaults to `false`
+```
+
+### `SecretKeysRails.secrets_path`
+
+Set a custom path to the secret keys encrypted file.
+
+```ruby
+SecretKeysRails.secret_path = "config/my_keys.yml" # Defaults to `config/secret_keys/<ENV>.yml` or `config/secret_keys.yml`
+```
+
+### `SecretKeysRails.key_path`
+
+Set a custom path to the encryption key path.
+
+```ruby
+SecretKeysRails.key_path = "config/my_keys.yml.key" # Defaults to `config/secret_keys/<ENV>.yml.key` or `config/secret_keys.yml.key`
+```
 
 ## Design
 
@@ -85,8 +125,10 @@ The underlying [SecretKeys](https://github.com/bdurand/secret_keys) library is m
 
 - The secret keys files are always stored as YAML.
 - The secret keys files exist at specific paths (`config/secret_keys.yml` or `config/secrets_keys/<ENV>.yml`).
+- The encryption key can be read from a specific path (`config/secret_keys.yml.key` or `config/secrets_keys/<ENV>.yml.key`).
 - All values in the file will be encrypted.
 - An interactive edit command is supplied for editing the decrypted file.
+- Keys are returned as a deeply frozen `ActiveSupport::HashWithIndifferentAccess`.
 
 ## Known Limitations
 
