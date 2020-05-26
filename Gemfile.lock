@@ -4,7 +4,7 @@ PATH
     secret_keys_rails (0.1.0)
       ice_nine
       rails (>= 4)
-      secret_keys
+      secret_keys (>= 1.0.0.pre)
       thor
 
 GEM
