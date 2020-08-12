@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    secret_keys_rails (0.1.0)
+    secret_keys_rails (0.1.1)
       ice_nine
       rails (>= 4)
-      secret_keys (>= 1.0.0.pre)
+      secret_keys (~> 1.0)
       thor
 
 GEM
@@ -178,7 +178,7 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rake (12.3.3)
     ruby-progressbar (1.10.1)
-    secret_keys (1.0.0.pre)
+    secret_keys (1.0.1)
     sprockets (4.0.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
