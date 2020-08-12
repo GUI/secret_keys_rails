@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    secret_keys_rails (0.1.1)
+    secret_keys_rails (0.1.2)
       ice_nine
       rails (>= 4)
       secret_keys (~> 1.0)
